@@ -1,0 +1,64 @@
+services:
+  redis:
+    image: redis:alpine
+    container_name: chatsync-redis-root
+    networks:
+      - chatsync-network
+    restart: unless-stopped
+
+  ai:
+    build:
+      context: ./AI
+    container_name: chatsync-ai-root
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./AI/.env
+    environment:
+      - BACKEND_URL=http://backend:5002
+    networks:
+      - chatsync-network
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+    container_name: chatsync-backend-root
+    ports:
+      - "5002:5002"
+    env_file:
+      - ./backend/.env
+    environment:
+      - PORT=5002
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - AI_SERVER_URL=http://ai:8080
+    volumes:
+      - ./backend/uploads:/app/uploads
+    depends_on:
+      - redis
+      - ai
+    networks:
+      - chatsync-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: chatsync-frontend-root
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./frontend/.env
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - chatsync-network
+    restart: unless-stopped
+
+networks:
+  chatsync-network:
+    driver: bridge

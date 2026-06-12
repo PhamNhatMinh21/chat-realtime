@@ -1,0 +1,26 @@
+services:
+  backend:
+    build: .
+    container_name: chatsync-backend
+    ports:
+      - "5002:5002"
+    env_file:
+      - .env
+    environment:
+      - PORT=5002
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      # Địa chỉ gọi máy chủ AI khi chạy cục bộ / host
+      - AI_SERVER_URL=${AI_SERVER_URL:-http://localhost:8080}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./uploads:/app/uploads
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  redis:
+    image: redis:alpine
+    container_name: chatsync-redis
+    restart: unless-stopped

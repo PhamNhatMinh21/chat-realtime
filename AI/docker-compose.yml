@@ -1,0 +1,15 @@
+services:
+  ai:
+    build: .
+    container_name: chatsync-ai
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      - PORT=8080
+      # Nếu chạy riêng lẻ, mặc định kết nối tới Backend host
+      - BACKEND_URL=${BACKEND_URL:-http://localhost:5002}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped

@@ -1,0 +1,14 @@
+services:
+  frontend:
+    build: .
+    container_name: chatsync-frontend
+    ports:
+      - "5173:5173"
+    env_file:
+      - .env
+    volumes:
+      # Ánh xạ toàn bộ thư mục để hỗ trợ HMR (Hot Module Replacement) khi sửa code ở host
+      - .:/app
+      # Đảm bảo không ghi đè thư mục node_modules của container
+      - /app/node_modules
+    restart: unless-stopped

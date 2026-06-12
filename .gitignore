@@ -1,0 +1,77 @@
+# Environment files (Crucial: ignore all secret files)
+.env
+.env.local
+.env.*.local
+*.env
+**/.env
+**/.env.*
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Dependencies
+node_modules/
+jspm_packages/
+web_modules/
+
+# Python (for AI folder)
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Large ML/AI files (models and datasets)
+# Un-comment the lines below if you do not want to upload large model files to GitHub
+# *.pkl
+# *.csv
+
+# Build directories
+dist/
+dist-ssr/
+out/
+.next/
+
+# IDEs and Editor configurations
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.project
+.classpath
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Log files
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
