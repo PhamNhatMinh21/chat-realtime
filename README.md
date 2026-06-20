@@ -6,27 +6,26 @@
 Dự án được xây dựng với mục tiêu mang lại trải nghiệm trò chuyện mượt mà, an toàn và sạch sẽ cho người dùng nhờ vào khả năng phát hiện tin nhắn độc hại theo thời gian thực và tự động làm mờ chúng.
 
 ### Các tính năng chính
-- **Trò chuyện thời gian thực (Real-time Chatting)**: Hỗ trợ trò chuyện cá nhân (1-on-1) và trò chuyện nhóm (Group chat) sử dụng WebSockets.
-- **Tương tác tin nhắn nâng cao**: Phản hồi tin nhắn (reply), thả cảm xúc (emoji reactions), thu hồi tin nhắn (recall), chỉnh sửa tin nhắn (edit), gửi hình ảnh/tệp đính kèm.
+- **Trò chuyện thời gian thực**: Hỗ trợ trò chuyện cá nhân (1-1) và trò chuyện nhóm sử dụng WebSockets.
+- **Tương tác tin nhắn**: Phản hồi tin nhắn, thả cảm xúc, thu hồi tin nhắn, chỉnh sửa tin nhắn, gửi hình ảnh/tệp đính kèm.
 - **Hệ thống bạn bè & Thông báo**: Gửi yêu cầu kết bạn, quản lý danh sách bạn bè, thông báo tin nhắn mới, nhắc nhở công việc, v.v.
-- **Quản lý công việc (Task Management)**: Tạo và phân công công việc trực tiếp trong nhóm chat, đặt deadline, tự động gửi nhắc nhở công việc sắp đến hạn.
-- **Mạng xã hội thu nhỏ (Social Feed)**: Đăng bài viết cá nhân kèm hình ảnh, thả cảm xúc (like, love, haha...) và bình luận trên bài viết.
-- **Kiểm duyệt nội dung tự động bằng AI đa tầng (AI Content Moderation)**:
+- **Quản lý công việc**: Tạo và phân công công việc trực tiếp trong nhóm chat, đặt deadline, tự động gửi nhắc nhở công việc sắp đến hạn.
+- **Bảng tin tức**: Đăng bài viết cá nhân kèm hình ảnh, thả cảm xúc (like, love, haha...) và bình luận trên bài viết.
+- **Kiểm duyệt nội dung tự động bằng AI nhiều tầng**:
   - **Tầng 1 (Blacklist)**: Kiểm tra nhanh từ cấm bằng danh sách từ khóa độc hại sẵn có (phản hồi cực nhanh).
   - **Tầng 2 (Local AI)**: Sử dụng mô hình Machine Learning phân loại văn bản (`scikit-learn` kết hợp tách từ tiếng Việt bằng `underthesea`) để phân tích sắc thái tin nhắn (Tích cực, Tiêu cực, Trung tính) ngay trong RAM.
   - **Tầng 3 (Deep Scan với Google Gemini)**: Khi mô hình cục bộ không chắc chắn (độ tin cậy thấp hoặc xuất hiện nhiều từ mới), tin nhắn sẽ được quét ngầm bởi Google Gemini API. Nếu phát hiện độc hại, AI sẽ yêu cầu Backend làm mờ tin nhắn, lưu dữ liệu huấn luyện mới vào `dataset.csv` và tự động kích hoạt tiến trình huấn luyện lại mô hình cục bộ.
 
 ### Công nghệ sử dụng
-- **Frontend**: React (Vite), Zustand (State Management), React Router DOM, Socket.io-client, Axios, Lucide React, CSS Vanilla.
+- **Frontend**: React (Vite), Zustand, React Router DOM, Socket.io-client, Axios, Lucide React, CSS Vanilla.
 - **Backend**: Node.js, Express, Socket.io, Mongoose (MongoDB), Redis (caching & sync), JWT & Google OAuth2.
 - **AI Service**: Python, FastAPI, Uvicorn, Scikit-learn (mô hình cục bộ), Underthesea (NLP tiếng Việt), Google Gemini AI SDK.
 - **Cơ sở dữ liệu**: MongoDB Atlas / MongoDB Local (9 collections chính: `users`, `sessions`, `conversations`, `messages`, `tasks`, `friends`, `friendrequests`, `notifications`, `posts`).
-
 ---
 
 ## 2. Hướng dẫn cài đặt và chạy chương trình (Sử dụng Docker)
 
-Dự án được cấu hình và đóng gói hoàn toàn trong các Docker container. Bạn chỉ cần cài đặt **Docker** để chạy toàn bộ hệ thống mà không cần cài đặt Node.js hay Python thủ công.
+Dự án được cấu hình và đóng gói hoàn toàn trong các Docker container. Chúng ta chỉ cần cài đặt **Docker** để chạy toàn bộ hệ thống mà không cần cài đặt Node.js hay Python thủ công.
 
 ### Yêu cầu chuẩn bị trước
 - Đã cài đặt [Docker Desktop](https://www.docker.com/products/docker-desktop/).
@@ -44,7 +43,7 @@ Hãy tự tạo thủ công các tệp `.env` trong 3 thư mục tương ứng b
    ```
 
 2. **Backend (`SourceCode/Chat realtime/backend/.env`)**:
-   Tạo tệp `.env` trong thư mục `backend/` với nội dung (điền thông tin MongoDB và JWT secret của bạn):
+   Tạo tệp `.env` trong thư mục `backend/` với nội dung (điền thông tin MongoDB và JWT secret):
    ```env
    PORT=5002
    MONGODB_CONNECTIONSTRING=mongodb+srv://<USERNAME>:<PASSWORD>@<CLUSTER_URL>/?appName=Cluster0
@@ -93,7 +92,7 @@ docker compose up -d --build
 #### 3. Khởi chạy Frontend (Cổng 5173)
 ```bash
 cd "SourceCode/Chat realtime/frontend"
-docker compose up -d--build
+docker compose up -d --build
 ```
 
 Sau khi cả 3 dịch vụ được khởi chạy thành công:
