@@ -1,9 +1,9 @@
-# ChatSync - Hệ thống Chat Realtime Tích hợp Kiểm duyệt AI Đa Tầng
+# Hệ thống Chat Realtime tích hợp AI phân loại nội dung độc hại
 
 ## 1. Giới thiệu dự án
-**ChatSync** là một ứng dụng nhắn tin thời gian thực (realtime) hiện đại, hỗ trợ đầy đủ các tính năng kết nối mạng xã hội và quản lý công việc trực quan, đồng thời tích hợp hệ thống kiểm duyệt nội dung tự động bằng AI đa tầng (kết hợp mô hình học máy cục bộ và API Google Gemini).
+**ChatSync** là một web nhắn tin theo thời gian thực, hỗ trợ đầy đủ các tính năng kết nối mạng xã hội và quản lý công việc trực quan, đồng thời tích hợp AI phân loại nội dung độc hại (kết hợp mô hình học máy cục bộ và API Google Gemini).
 
-Dự án được xây dựng với mục tiêu mang lại trải nghiệm trò chuyện mượt mà, an toàn và sạch sẽ cho người dùng nhờ vào khả năng phát hiện tin nhắn độc hại (toxic) theo thời gian thực và tự động làm mờ chúng.
+Dự án được xây dựng với mục tiêu mang lại trải nghiệm trò chuyện mượt mà, an toàn và sạch sẽ cho người dùng nhờ vào khả năng phát hiện tin nhắn độc hại theo thời gian thực và tự động làm mờ chúng.
 
 ### Các tính năng chính
 - **Trò chuyện thời gian thực (Real-time Chatting)**: Hỗ trợ trò chuyện cá nhân (1-on-1) và trò chuyện nhóm (Group chat) sử dụng WebSockets.
@@ -14,7 +14,7 @@ Dự án được xây dựng với mục tiêu mang lại trải nghiệm trò 
 - **Kiểm duyệt nội dung tự động bằng AI đa tầng (AI Content Moderation)**:
   - **Tầng 1 (Blacklist)**: Kiểm tra nhanh từ cấm bằng danh sách từ khóa độc hại sẵn có (phản hồi cực nhanh).
   - **Tầng 2 (Local AI)**: Sử dụng mô hình Machine Learning phân loại văn bản (`scikit-learn` kết hợp tách từ tiếng Việt bằng `underthesea`) để phân tích sắc thái tin nhắn (Tích cực, Tiêu cực, Trung tính) ngay trong RAM.
-  - **Tầng 3 (Deep Scan với Google Gemini)**: Khi mô hình cục bộ không chắc chắn (độ tin cậy thấp hoặc xuất hiện nhiều từ mới), tin nhắn sẽ được quét ngầm bởi Google Gemini API. Nếu phát hiện độc hại, AI sẽ yêu cầu Backend làm mờ tin nhắn, lưu dữ liệu huấn luyện mới vào `dataset.csv` và tự động kích hoạt tiến trình huấn luyện lại (retrain) mô hình cục bộ.
+  - **Tầng 3 (Deep Scan với Google Gemini)**: Khi mô hình cục bộ không chắc chắn (độ tin cậy thấp hoặc xuất hiện nhiều từ mới), tin nhắn sẽ được quét ngầm bởi Google Gemini API. Nếu phát hiện độc hại, AI sẽ yêu cầu Backend làm mờ tin nhắn, lưu dữ liệu huấn luyện mới vào `dataset.csv` và tự động kích hoạt tiến trình huấn luyện lại mô hình cục bộ.
 
 ### Công nghệ sử dụng
 - **Frontend**: React (Vite), Zustand (State Management), React Router DOM, Socket.io-client, Axios, Lucide React, CSS Vanilla.
@@ -29,7 +29,7 @@ Dự án được xây dựng với mục tiêu mang lại trải nghiệm trò 
 Dự án được cấu hình và đóng gói hoàn toàn trong các Docker container. Bạn chỉ cần cài đặt **Docker** để chạy toàn bộ hệ thống mà không cần cài đặt Node.js hay Python thủ công.
 
 ### Yêu cầu chuẩn bị trước
-- Đã cài đặt [Docker Desktop](https://www.docker.com/products/docker-desktop/) (hoặc Docker Engine & Docker Compose).
+- Đã cài đặt [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 
 ---
 
@@ -80,21 +80,20 @@ Mở terminal và di chuyển vào từng thư mục dự án để khởi chạ
 #### 1. Khởi chạy AI Service (Cổng 8080)
 ```bash
 cd "SourceCode/Chat realtime/AI"
-docker compose up --build
+docker compose up -d --build
 ```
-*(Nếu muốn chạy dưới nền, hãy thêm tham số `-d`: `docker compose up --build -d`)*
 
 #### 2. Khởi chạy Backend & Redis (Cổng 5002 và 6379)
 ```bash
 cd "SourceCode/Chat realtime/backend"
-docker compose up --build
+docker compose up -d --build
 ```
 *Lệnh này sẽ khởi chạy đồng thời container cơ sở dữ liệu đệm Redis và container Backend Express.*
 
 #### 3. Khởi chạy Frontend (Cổng 5173)
 ```bash
 cd "SourceCode/Chat realtime/frontend"
-docker compose up --build
+docker compose up -d--build
 ```
 
 Sau khi cả 3 dịch vụ được khởi chạy thành công:
@@ -113,10 +112,8 @@ Chat realtime/
 │       ├── AI/              # Dịch vụ kiểm duyệt AI (FastAPI)
 │       ├── backend/         # Máy chủ Backend (Express & Socket.io)
 │       ├── frontend/        # Giao diện người dùng (React, Zustand)
-│       ├── docker-compose.yml  # Cấu hình khởi chạy Docker chung (nếu cần)
-│       ├── database_diagram.md  # Chi tiết thiết kế database ER
-│       └── mongodb_schema.md   # Đặc tả các collection của MongoDB
-└── README.md                # Tài liệu hướng dẫn sử dụng (File này)
+│       ├── docker-compose.yml  # Cấu hình khởi chạy Docker chung
+└── README.md                # Tài liệu hướng dẫn sử dụng
 ```
 
 ## 4. Chi tiết cấu hình các biến môi trường trong tệp `.env`
