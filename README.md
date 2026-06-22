@@ -81,11 +81,19 @@ Mở terminal và di chuyển vào từng thư mục dự án để khởi chạ
 cd "SourceCode/Chat realtime/AI"
 docker compose up -d --build
 ```
+*Sau khi chạy xong lệnh build ở trên, chạy tiếp lệnh sau để khởi chạy dịch vụ:*
+```bash
+docker compose up
+```
 
 #### 2. Khởi chạy Backend & Redis (Cổng 5002 và 6379)
 ```bash
 cd "SourceCode/Chat realtime/backend"
 docker compose up -d --build
+```
+*Sau khi chạy xong lệnh build ở trên, chạy tiếp lệnh sau để khởi chạy dịch vụ:*
+```bash
+docker compose up
 ```
 *Lệnh này sẽ khởi chạy đồng thời container cơ sở dữ liệu đệm Redis và container Backend Express.*
 
@@ -93,6 +101,10 @@ docker compose up -d --build
 ```bash
 cd "SourceCode/Chat realtime/frontend"
 docker compose up -d --build
+```
+*Sau khi chạy xong lệnh build ở trên, chạy tiếp lệnh sau để khởi chạy dịch vụ:*
+```bash
+docker compose up
 ```
 
 Sau khi cả 3 dịch vụ được khởi chạy thành công:
