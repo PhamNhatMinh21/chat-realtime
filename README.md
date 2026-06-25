@@ -157,7 +157,7 @@ Chat realtime/
 4. **Điền thông tin:** Chọn loại người dùng (External) -> Điền thông tin bắt buộc hiển thị của ứng dụng -> Nhấn lưu.
 5. **Nhấn vào tạo 1 máy khách OAuth (OAuth client ID):** Đi tới mục **Thông tin xác thực (Credentials)** -> Bấm **Tạo thông tin xác thực** -> Chọn **ID ứng dụng khách OAuth**.
 6. **Nhập thông tin:** Chọn loại ứng dụng là **Ứng dụng web** -> Tại mục **URI chuyển hướng được ủy quyền**, thêm địa chỉ callback(Mặc định chạy ở local là `http://localhost:5002/api/auth/google/callback`) -> Nhấn **Tạo**.
-7. **Nhận thông tin:** Bạn sẽ có được thông tin **GOOGLE CLIENT ID** và **GOOGLE SECRET** hiển thị trên màn hình để cấu hình vào tệp `.env`.
+7. **Nhận thông tin:** Khi này Google sẽ đưa **GOOGLE CLIENT ID** và **GOOGLE SECRET** hiển thị trên màn hình để cấu hình vào tệp `.env`.
 
 ---
 > **Về Cơ sở dữ liệu MongoDB:** 
