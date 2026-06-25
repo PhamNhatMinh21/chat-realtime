@@ -147,3 +147,18 @@ Chat realtime/
 - `VITE_API_BASE_URL`: URL gốc của backend (`http://localhost:5002`).
 - `VITE_API_URL`: URL API endpoints (`http://localhost:5002/api`).
 - `VITE_SOCKET_URL`: URL máy chủ Socket.io (`http://localhost:5002`).
+
+## 5. Hướng dẫn lấy GOOGLE_CLIENT_ID và GOOGLE_CLIENT_SECRET
+Để sử dụng tính năng đăng nhập bằng tài khoản Google (Google OAuth2), bạn cần lấy thông tin xác thực từ Google Cloud Console theo các bước sau:
+
+1. **Truy cập trang:** [https://console.cloud.google.com/](https://console.cloud.google.com/)
+2. **Tạo dự án:** Bấm vào mục chọn dự án -> Chọn dự án mới -> Nhập tên dự án và tạo.
+3. **Màn hình đồng ý OAuth (OAuth consent screen / Presentation):** Truy cập vào mục này ở thanh bên trái.
+4. **Điền thông tin:** Chọn loại người dùng (External) -> Điền thông tin bắt buộc hiển thị của ứng dụng -> Nhấn lưu.
+5. **Nhấn vào tạo 1 máy khách OAuth (OAuth client ID):** Đi tới mục **Thông tin xác thực (Credentials)** -> Bấm **Tạo thông tin xác thực** -> Chọn **ID ứng dụng khách OAuth**.
+6. **Nhập thông tin:** Chọn loại ứng dụng là **Ứng dụng web** -> Tại mục **URI chuyển hướng được ủy quyền**, thêm địa chỉ callback(Mặc định chạy ở local là `http://localhost:5002/api/auth/google/callback`) -> Nhấn **Tạo**.
+7. **Nhận thông tin:** Bạn sẽ có được thông tin **GOOGLE CLIENT ID** và **GOOGLE SECRET** hiển thị trên màn hình để cấu hình vào tệp `.env`.
+
+---
+> **Về Cơ sở dữ liệu MongoDB:** 
+> MongoDB chỉ cần duy nhất key để setup trong file .env. Khi này MongoDB Atlas sẽ tự động tạo cơ sở dữ liệu ngay khi có người dùng đăng ký hoặc tương tác lần đầu. 
