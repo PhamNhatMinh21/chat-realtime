@@ -149,7 +149,7 @@ Chat realtime/
 - `VITE_SOCKET_URL`: URL máy chủ Socket.io (`http://localhost:5002`).
 
 ## 5. Hướng dẫn lấy GOOGLE_CLIENT_ID và GOOGLE_CLIENT_SECRET
-Để sử dụng tính năng đăng nhập bằng tài khoản Google (Google OAuth2), bạn cần lấy thông tin xác thực từ Google Cloud Console theo các bước sau:
+Để sử dụng tính năng đăng nhập bằng tài khoản Google (Google OAuth2), chúng ta cần lấy thông tin xác thực từ Google Cloud Console theo các bước sau:
 
 1. **Truy cập trang:** [https://console.cloud.google.com/](https://console.cloud.google.com/)
 2. **Tạo dự án:** Bấm vào mục chọn dự án -> Chọn dự án mới -> Nhập tên dự án và tạo.
