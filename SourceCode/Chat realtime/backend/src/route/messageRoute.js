@@ -29,7 +29,7 @@ const upload = multer({
         fileSize: 10 * 1024 * 1024, // Giới hạn 10MB
     },
     fileFilter: (req, file, cb) => {
-        const allowedTypes = /jpeg|jpg|png|gif|mp4|mp3|pdf|doc|docx|txt/;
+        const allowedTypes = /jpeg|jpg|png|gif|mp4|mp3|pdf|doc|docx|txt|webm|wav|ogg|m4a|octet-stream/;
         const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
         const mimetype = allowedTypes.test(file.mimetype);
 

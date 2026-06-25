@@ -14,14 +14,16 @@ function ConvAvatar({ conversation, authUser, size = 38 }) {
   const name = isGroup
     ? (conversation.group?.name || "Nhóm")
     : (partner?.displayName || partner?.username || "?");
-  const avatarUrl = !isGroup && partner?.avatarUrl ? `${BASE_URL}${partner.avatarUrl}` : null;
+  const avatarUrl = isGroup
+    ? (conversation.group?.avatarUrl ? `${BASE_URL}${conversation.group.avatarUrl}` : null)
+    : (partner?.avatarUrl ? `${BASE_URL}${partner.avatarUrl}` : null);
 
   return (
     <div style={{ width: size, height: size, borderRadius: "50%", overflow: "hidden", flexShrink: 0 }}>
       {avatarUrl ? (
         <img src={avatarUrl} alt={name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
       ) : (
-        <div style={{ width: "100%", height: "100%", background: "var(--accent-gradient)", display: "flex", alignItems: "center", justifycontent: "center", fontSize: size * 0.38, fontWeight: 700, color: "white" }}>
+        <div style={{ width: "100%", height: "100%", background: "var(--accent-gradient)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: size * 0.38, fontWeight: 700, color: "white" }}>
           {name.charAt(0).toUpperCase()}
         </div>
       )}
@@ -131,7 +133,7 @@ export default function ForwardModal({ message, onClose }) {
                     {conv.type === "group" ? `${conv.participants?.length || 0} thành viên` : "Chat 1-1"}
                   </div>
                 </div>
-                <div style={{ width: 28, height: 28, borderRadius: "50%", display: "flex", alignItems: "center", justifycontent: "center", flexShrink: 0, background: done === conv._id ? "rgba(34,211,166,0.2)" : "rgba(124,106,255,0.08)" }}>
+                <div style={{ width: 28, height: 28, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, background: done === conv._id ? "rgba(34,211,166,0.2)" : "rgba(124,106,255,0.08)" }}>
                   {done === conv._id ? (
                     <Check size={15} color="var(--success)" />
                   ) : forwarding === conv._id ? (
