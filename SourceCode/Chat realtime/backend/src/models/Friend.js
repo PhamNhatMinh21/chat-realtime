@@ -12,18 +12,17 @@ const friendSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
-},{
+}, {
     timestamps: true,
 })
 // truoc khi luu phai chuan hoa ki tu userA < userB => middleware
 
 // doan nay se chay du lieu truoc khi vao db
-// Middleware chuẩn hóa: Đảm bảo userA luôn nhỏ hơn userB (về mặt chuỗi)
-friendSchema.pre('save', function (next){
+friendSchema.pre('save', function (next) {
     const a = this.userA.toString();
     const b = this.userB.toString();
 
-    if(a>b){
+    if (a > b) {
         const temp = this.userA;
         this.userA = this.userB;
         this.userB = temp;
@@ -31,7 +30,7 @@ friendSchema.pre('save', function (next){
 });
 
 // Tạo index duy nhất để không bao giờ có 2 bản ghi cho cùng 1 cặp bạn bè
-friendSchema.index({userA: 1, userB: 1}, {unique: true});
+friendSchema.index({ userA: 1, userB: 1 }, { unique: true });
 
 const Friend = mongoose.model("Friend", friendSchema);
 

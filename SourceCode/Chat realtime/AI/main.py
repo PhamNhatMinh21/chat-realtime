@@ -40,7 +40,7 @@ def load_ai_models():
         with open(os.path.join(BASE_DIR, 'vectorizer.pkl'), 'rb') as f:
             vectorizer = pickle.load(f)
         AI_VOCABULARY = set(vectorizer.vocabulary_.keys())
-        logging.info("🚀 Đã nạp Model AI Local thành công!")
+        logging.info(" Đã nạp Model AI Local thành công!")
     except Exception as e:
         logging.error(f" Lỗi nạp model: {e}")
 
@@ -70,11 +70,11 @@ def auto_train_ai():
     logging.info("⚙️ Bắt đầu tiến trình huấn luyện lại AI ngầm...")
     try:
         subprocess.run(["python", os.path.join(BASE_DIR, "train.py")], check=True, capture_output=True)
-        logging.info("✅ Huấn luyện xong! Đang nạp Model mới vào RAM...")
+        logging.info(" Huấn luyện xong! Đang nạp Model mới vào RAM...")
         load_ai_models()
         new_words_count = 0 
     except Exception as e:
-         logging.error(f"❌ Lỗi khi train: {e}")
+         logging.error(f" Lỗi khi train: {e}")
 
 def call_gemini_sync(prompt):
     """Gọi API Gemini đồng bộ."""
@@ -135,7 +135,7 @@ async def background_gemini_verify(message_text: str, message_id: str):
                 ]
                 df_new = pd.DataFrame(new_data)
                 df_new.to_csv(os.path.join(BASE_DIR, 'dataset.csv'), mode='a', header=False, index=False, encoding="utf-8-sig")
-                logging.info("💾 Lưu 3 mẫu dữ liệu mới vào dataset thành công.")
+                logging.info(" Lưu 3 mẫu dữ liệu mới vào dataset thành công.")
                 
                 # Tự động huấn luyện lại mô hình trong luồng phụ nếu gom đủ 3 mẫu tin nhắn toxic mới
                 new_words_count += 1

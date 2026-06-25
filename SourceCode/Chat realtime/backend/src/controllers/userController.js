@@ -75,7 +75,7 @@ export const uploadAvatar = async (req, res) => {
             if (fs.existsSync(oldPath)) {
                 fs.unlink(oldPath, (err) => {
                     if (err) console.error("Lỗi khi xóa ảnh đại diện cũ khỏi máy chủ:", err);
-                    else console.log(`🗑️ Đã xóa tệp ảnh đại diện cũ: ${oldAvatar}`);
+                    else console.log(` Đã xóa tệp ảnh đại diện cũ: ${oldAvatar}`);
                 });
             }
         }

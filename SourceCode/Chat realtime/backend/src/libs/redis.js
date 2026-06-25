@@ -20,11 +20,11 @@ export const getRedisClient = () => {
         });
 
         redisClient.on("connect", () => {
-            console.log("✅ Redis đã kết nối thành công");
+            console.log(" Redis đã kết nối thành công");
         });
 
         redisClient.on("error", (err) => {
-            console.error("❌ Redis lỗi kết nối:", err.message);
+            console.error(" Redis lỗi kết nối:", err.message);
         });
     }
     return redisClient;
